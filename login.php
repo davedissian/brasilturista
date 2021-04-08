@@ -8,38 +8,37 @@
 </head>
 <body>
     <?php
-    require_once'menu.html';
+    require_once 'menu.html';
     ?>
-    <div class="container my-4">
-    <div class="row">
-        <form method="POST" action="./backend/logar.php" class="container box">
-
-        <?php
-        if(isset($_SESSION['naologado'])):
-        ?>
-            <div class="alert alert-danger" role="alert">
-            Erro: Usuario ou senha invalidos!
+    <div class="container my-5">
+        <div class="row">
+            <form method="POST" action="./backend/logar.php">
+            
+            <?php
+            if(isset($_SESSION['naologado'])):
+            ?>
+                <div class="alert alert-danger" role="alert">
+                Erro: Usuario ou senha invalidos!
+                </div>
+            <?php
+            endif;
+            unset($_SESSION['naologado']);
+            ?>
+        
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
             </div>
-        <?php
-        endif;
-        unset($_SESSION['naologado']);
-        ?>
-    
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" name="senha" id="senha" maxlength="8" required>
+            </div>
+            <button type="submit" class="btn btn-primary my-3">Entrar</button>
+            </form>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <label for="senha" class="form-label">Senha</label>
-            <input type="password" class="form-control" name="senha" id="senha">
-        </div>
-        <button type="submit" class="btn cancel my-3">Entrar</button>
-        <a href="cadastro.php" class="col-sm-6 col-md-4 col-lg-3">Ainda não tem cadastro? Clique aqui!</a>
-        </form>
-    </div>
     </div>
     <?php
-    require_once'footer.html';
+    require_once 'footer.html';
     ?>
 </body>
 </html>

@@ -6,7 +6,7 @@ CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `email` varchar(40) NOT NULL,
-  `cpf` char(14) NOT NULL,
+  `cpf` char(11) NOT NULL,
   `telefone` varchar(12) NOT NULL,
   `sexo` char(1) NOT NULL,
   `senha` char(40) NOT NULL

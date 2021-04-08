@@ -1,19 +1,33 @@
 <?php
-require_once'connection.php';
-if (isset($_POST["email"]) && isset($_POST["senha"])){
-    $email = $_POST["email"];
-    $senha = sha1($_POST["senha"]);
+session_start();
+require_once 'connection.php';
 
-    $query = "SELECT id_usuario, email, senha, tipo_usuario FROM usuario WHERE email='$email' AND senha='$senha'";
+if(empty($_POST['email']) || empty($_POST['senha'])){
+    header('Location: ../login.php');
+    exit();
+  }
+  $email = mysqli_real_escape_string($connect, $_POST['email']);
+  $senha = mysqli_real_escape_string($connect, $_POST['senha']);
+
+    $query = "SELECT * FROM usuario WHERE email='{$email}' AND senha=sha1('{$senha}')";
     $executar = mysqli_query($connect, $query);
     $encontrar = mysqli_num_rows($executar);
     if($encontrar == 1){
-        $login = mysqli_fetch_array($executar);
-        session_start();
-        $_SESSION['id_usuario'] = $_POST['id_usuario'];
-        $_SESSION['tipo_usuario'] = $_POST['tipo_usuario'];
-        header('Location: ./perfil.php');
+        while ($row = mysqli_fetch_assoc($executar)) {
+            $_SESSION['id_usuario'] = $row['id_usuario'];
+            $_SESSION['nome'] = $row['nome_usuario'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['cpf'] = $row['cpf'];
+            $_SESSION['telefone'] = $row['telefone'];
+            $_SESSION['sexo'] = $row['sexo'];
+            $_SESSION['senha'] = $row['senha'];
+        }
+        header('Location: ../perfil.php');
     } else {
-        echo "Dados incorretos!!";
+        $_SESSION['naologado'] = true;
+        echo"<script>alert('Login inválido!'); location.href='../login.php'</script>";    
+    exit();
     }
-}
+
+      
+ 
